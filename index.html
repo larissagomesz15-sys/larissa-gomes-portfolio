@@ -23,6 +23,147 @@
 @media(max-width:980px){.desktop-cta{display:none}.menu-toggle{display:block}.nav-links{position:absolute;top:78px;left:20px;right:20px;background:#fffaf5;display:none;flex-direction:column;padding:22px;border-radius:18px;box-shadow:var(--shadow)}.nav-links.open{display:flex}.hero-grid,.about-grid,.niches-grid{grid-template-columns:1fr}.hero-photo{height:auto;min-height:0;margin-top:35px;padding:28px 18px}.hero-photo img{max-width:84%;max-height:500px}.hero-copy{padding-right:0}.proof-grid{grid-template-columns:repeat(2,1fr)}.proof-grid>div:nth-child(2){border-right:0}.proof-grid>div{border-bottom:1px solid var(--line)}.service-grid{grid-template-columns:repeat(2,1fr)}.cases-grid{grid-template-columns:repeat(2,1fr)}.about-photo-wrap{height:auto;min-height:0;max-width:520px}.section-head{align-items:start;flex-direction:column}.countries{align-items:flex-start;flex-direction:column;gap:20px}.contact{grid-template-columns:1fr}.contact-photo{height:auto;min-height:0;padding:22px}.contact-photo img{max-height:560px}}
 @media(max-width:640px){.container{width:min(100% - 26px,1180px)}.section-pad{padding:70px 0}.nav-wrap{height:68px}.nav-links{top:68px}.brand-name{display:none}.hero{padding-top:42px}.hero-grid{min-height:auto}.hero h1{font-size:3.2rem}.hero-photo{height:auto;min-height:0;padding:22px 12px}.hero-photo img{width:auto;height:auto;max-width:86%;max-height:450px;border-radius:26px}.mini-benefits{flex-direction:column;gap:16px}.proof-grid{grid-template-columns:1fr}.proof-grid>div{border-right:0}.about-photo-wrap{height:auto;min-height:0;padding:22px 18px}.about-photo{max-width:90%;max-height:460px;border-radius:20px}.about-points{grid-template-columns:1fr}.service-grid,.cases-grid{grid-template-columns:1fr}.niche-list{grid-template-columns:repeat(2,1fr)}.country-row{gap:14px}.contact-copy{padding:55px 28px}.contact-actions,.hero-actions{flex-direction:column;align-items:stretch}.footer .container{flex-direction:column;gap:5px}.modal-body{padding:44px 24px 28px}.modal-stats{grid-template-columns:1fr}.case-cover{min-height:165px}}
 
+
+/* PHOTO-FRAMING-V2 */
+/* Volta o enquadramento principal ao tamanho anterior */
+.hero-photo{
+  padding:34px 24px 18px;
+}
+.hero-photo img{
+  max-width:88%;
+  max-height:560px;
+  object-fit:contain;
+  object-position:center center;
+}
+
+/* Foto do meio: mantém a mesma imagem e cria fundo orgânico para disfarçar o recorte */
+.about-photo-wrap{
+  position:relative;
+  min-height:570px;
+  padding:24px 20px 0;
+  background:transparent;
+  box-shadow:none;
+  border-radius:40px;
+  overflow:visible;
+  isolation:isolate;
+}
+.about-photo-wrap::before{
+  content:"";
+  position:absolute;
+  left:4%;
+  right:8%;
+  top:14%;
+  bottom:3%;
+  z-index:-3;
+  background:linear-gradient(145deg,#ead8c9 0%,#f4e8dc 55%,#e2c8b3 100%);
+  border-radius:46% 54% 42% 58% / 35% 42% 58% 65%;
+  box-shadow:0 24px 60px rgba(76,49,34,.10);
+}
+.about-photo-wrap::after{
+  content:"";
+  position:absolute;
+  width:46%;
+  aspect-ratio:1;
+  right:-2%;
+  top:5%;
+  z-index:-2;
+  border-radius:50%;
+  background:rgba(196,138,103,.18);
+}
+.about-blob{
+  display:block;
+  position:absolute;
+  width:54%;
+  aspect-ratio:1;
+  left:-5%;
+  bottom:4%;
+  z-index:-2;
+  border-radius:50%;
+  background:rgba(155,89,56,.10);
+}
+.about-photo{
+  width:auto;
+  height:auto;
+  max-width:96%;
+  max-height:560px;
+  object-fit:contain;
+  object-position:center bottom;
+  border-radius:0;
+  margin:0 auto;
+  filter:drop-shadow(0 16px 24px rgba(49,30,20,.10));
+}
+
+/* Foto segurando o celular: volta a ficar próxima e apoiada na parte de baixo */
+.contact-photo{
+  overflow:hidden;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding:18px 18px 0;
+}
+.contact-photo img{
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:650px;
+  object-fit:contain;
+  object-position:center bottom;
+  border-radius:18px 18px 0 0;
+  transform:none;
+}
+
+@media(max-width:980px){
+  .hero-photo{padding:18px 12px}
+  .hero-photo img{max-width:92%;max-height:520px}
+
+  .about-photo-wrap{
+    min-height:0;
+    max-width:520px;
+    margin-inline:auto;
+    padding:18px 14px 0;
+  }
+  .about-photo{max-width:96%;max-height:520px}
+
+  .contact-photo{padding:14px 12px 0}
+  .contact-photo img{max-height:560px}
+}
+
+@media(max-width:640px){
+  .hero-photo{padding:14px 8px}
+  .hero-photo img{max-width:94%;max-height:480px}
+
+  .about-photo-wrap{
+    padding:14px 8px 0;
+    border-radius:30px;
+  }
+  .about-photo-wrap::before{
+    left:1%;
+    right:3%;
+    top:13%;
+    bottom:2%;
+  }
+  .about-photo-wrap::after{
+    width:52%;
+    right:-8%;
+    top:8%;
+  }
+  .about-blob{
+    width:60%;
+    left:-10%;
+  }
+  .about-photo{
+    max-width:100%;
+    max-height:470px;
+  }
+
+  .contact-photo{padding:10px 8px 0}
+  .contact-photo img{
+    max-width:100%;
+    max-height:460px;
+  }
+}
+/* END PHOTO-FRAMING-V2 */
+
 </style>
 </head>
 <body>
