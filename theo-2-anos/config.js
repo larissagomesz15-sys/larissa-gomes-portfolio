@@ -1,6 +1,6 @@
 window.THEO_INVITE_CONFIG = {
-  supabaseUrl: "PASTE_SUPABASE_URL_HERE",
-  supabaseAnonKey: "PASTE_SUPABASE_ANON_KEY_HERE",
+  supabaseUrl: "https://oripkyichxkrihnaxbwe.supabase.co",
+  supabaseAnonKey: "sb_publishable_zB9SfLDFMQyIYnzaIJ-bNA_AtKEUO5p",
   event: {
     title: "Theo 2 anos",
     dateISO: "2026-11-08T16:00:00-03:00",
