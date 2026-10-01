@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07140f">
+  <title>Painel • Theo 2 anos</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./config.js"></script>
+  <style>
+    :root{--bg:#07130e;--card:#0f2419;--line:#284334;--txt:#f6f2e7;--muted:#9fb0a4;--green:#b8d96f;--amber:#efbc60}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#06100c,#0a1a12);color:var(--txt);font-family:Inter,system-ui,sans-serif;min-height:100vh}
+    .wrap{max-width:1180px;margin:auto;padding:26px 18px 60px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}
+    h1{font-size:clamp(2rem,6vw,4rem);margin:0;font-family:"Arial Narrow",Impact,sans-serif;text-transform:uppercase}.sub{color:var(--muted);margin-top:6px}
+    button{border:1px solid var(--line);background:#e8dfc8;color:#102016;border-radius:12px;padding:11px 14px;font-weight:850;cursor:pointer}
+    button.dark{background:#0e2118;color:var(--txt)}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{background:rgba(15,36,25,.88);border:1px solid var(--line);border-radius:18px;padding:18px}
+    .card small{color:var(--muted);display:block;text-transform:uppercase;letter-spacing:.1em;font-weight:800}.card strong{display:block;font-size:2.2rem;margin-top:7px;color:var(--green)}
+    .tools{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}.tools input,.tools select{background:#0d2117;border:1px solid var(--line);color:white;border-radius:12px;padding:11px 12px}
+    .tools input{flex:1;min-width:220px}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:18px;background:rgba(10,27,18,.7)}
+    table{width:100%;border-collapse:collapse;min-width:880px}th,td{padding:13px 14px;text-align:left;border-bottom:1px solid rgba(40,67,52,.7)}th{color:#cbd6cd;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;position:sticky;top:0;background:#0c1e15}
+    td{font-size:.92rem}.tag{display:inline-block;border-radius:999px;padding:6px 9px;font-weight:850;font-size:.78rem}.sim{background:rgba(184,217,111,.14);color:#d8ef9f}.talvez{background:rgba(239,188,96,.13);color:#ffd58d}.nao{background:rgba(212,106,85,.14);color:#ffb3a5}
+    .login{min-height:100vh;display:grid;place-items:center;padding:20px}.login-card{width:min(94vw,430px);background:#0e2318;border:1px solid var(--line);padding:24px;border-radius:24px}.login h1{font-size:2.4rem}
+    label{display:block;margin:14px 0 7px;font-weight:800}.login input{width:100%;background:#08170f;color:white;border:1px solid var(--line);border-radius:12px;padding:13px}.login button{width:100%;margin-top:16px}.msg{color:#ffb7aa;margin-top:10px;font-size:.86rem}
+    .hidden{display:none!important}@media(max-width:720px){.grid{grid-template-columns:1fr 1fr}.top{align-items:flex-start;flex-direction:column}.top>div+div{width:100%;display:flex;gap:8px}.top button{flex:1}}
+  </style>
+</head>
+<body>
+  <section class="login" id="loginView">
+    <div class="login-card">
+      <div style="font-size:44px">🦖</div>
+      <h1>Painel da festa</h1>
+      <p class="sub">Área privada para acompanhar acessos e confirmações.</p>
+      <form id="loginForm">
+        <label>E-mail</label><input id="email" type="email" required autocomplete="email">
+        <label>Senha</label><input id="password" type="password" required autocomplete="current-password">
+        <button type="submit">Entrar no painel</button>
+        <div class="msg" id="loginMsg"></div>
+      </form>
+    </div>
+  </section>
+
+  <main class="wrap hidden" id="dashboard">
+    <div class="top">
+      <div><h1>Theo 2 anos</h1><div class="sub">Confirmações e acessos do convite</div></div>
+      <div><button class="dark" id="refreshBtn">Atualizar</button> <button id="logoutBtn">Sair</button></div>
+    </div>
+    <div class="grid">
+      <div class="card"><small>Acessaram</small><strong id="total">0</strong></div>
+      <div class="card"><small>Vão</small><strong id="yes">0</strong></div>
+      <div class="card"><small>Talvez</small><strong id="maybe">0</strong></div>
+      <div class="card"><small>Não vão</small><strong id="no">0</strong></div>
+    </div>
+    <div class="tools">
+      <input id="search" placeholder="Buscar por nome">
+      <select id="filter"><option value="">Todos</option><option value="sim">Vou</option><option value="talvez">Vou pensar</option><option value="nao">Não vou</option></select>
+      <button class="dark" id="csvBtn">Baixar CSV</button>
+    </div>
+    <div class="table-wrap"><table><thead><tr><th>Nome</th><th>Status</th><th>Adultos</th><th>Crianças</th><th>Acessos</th><th>Último acesso</th><th>Observação</th></tr></thead><tbody id="rows"></tbody></table></div>
+  </main>
+
+<script>
+  const cfg=window.THEO_INVITE_CONFIG||{};
+  const configured=cfg.supabaseUrl&&!cfg.supabaseUrl.includes("PASTE_")&&cfg.supabaseAnonKey&&!cfg.supabaseAnonKey.includes("PASTE_");
+  const sb=configured?window.supabase.createClient(cfg.supabaseUrl,cfg.supabaseAnonKey):null;
+  let data=[];
+  const loginView=document.getElementById("loginView"),dash=document.getElementById("dashboard"),loginMsg=document.getElementById("loginMsg");
+  if(!configured) loginMsg.textContent="O Supabase ainda não foi configurado no arquivo config.js.";
+
+  function fmt(d){if(!d)return"";return new Intl.DateTimeFormat("pt-BR",{dateStyle:"short",timeStyle:"short"}).format(new Date(d))}
+  function label(s){return s==="sim"?"Vou":s==="talvez"?"Vou pensar":"Não vou"}
+  function render(){
+    const q=document.getElementById("search").value.toLowerCase(),f=document.getElementById("filter").value;
+    const filtered=data.filter(x=>(!f||x.status===f)&&(!q||x.name.toLowerCase().includes(q)));
+    document.getElementById("total").textContent=data.length;
+    document.getElementById("yes").textContent=data.filter(x=>x.status==="sim").length;
+    document.getElementById("maybe").textContent=data.filter(x=>x.status==="talvez").length;
+    document.getElementById("no").textContent=data.filter(x=>x.status==="nao").length;
+    document.getElementById("rows").innerHTML=filtered.map(x=>`<tr><td><strong>${esc(x.name)}</strong></td><td><span class="tag ${x.status}">${label(x.status)}</span></td><td>${x.adults??0}</td><td>${x.children??0}</td><td>${x.access_count??1}</td><td>${fmt(x.last_accessed_at)}</td><td>${esc(x.note||"")}</td></tr>`).join("");
+  }
+  function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+  async function load(){
+    const {data:d,error}=await sb.from("rsvps").select("*").order("updated_at",{ascending:false});
+    if(error){alert("Não consegui carregar os dados: "+error.message);return}
+    data=d||[];render();
+  }
+  async function syncAuth(){
+    if(!configured)return;
+    const {data:{session}}=await sb.auth.getSession();
+    if(session){loginView.classList.add("hidden");dash.classList.remove("hidden");load()}
+    else{loginView.classList.remove("hidden");dash.classList.add("hidden")}
+  }
+  document.getElementById("loginForm").addEventListener("submit",async e=>{
+    e.preventDefault(); if(!configured)return;
+    loginMsg.textContent="Entrando...";
+    const {error}=await sb.auth.signInWithPassword({email:document.getElementById("email").value,password:document.getElementById("password").value});
+    if(error){loginMsg.textContent="Não foi possível entrar. Confira e-mail e senha.";return}
+    loginMsg.textContent="";syncAuth();
+  });
+  document.getElementById("logoutBtn").addEventListener("click",async()=>{await sb.auth.signOut();syncAuth()});
+  document.getElementById("refreshBtn").addEventListener("click",load);
+  document.getElementById("search").addEventListener("input",render);document.getElementById("filter").addEventListener("change",render);
+  document.getElementById("csvBtn").addEventListener("click",()=>{
+    const rows=[["Nome","Status","Adultos","Crianças","Acessos","Último acesso","Observação"],...data.map(x=>[x.name,label(x.status),x.adults,x.children,x.access_count,fmt(x.last_accessed_at),x.note||""])];
+    const csv=rows.map(r=>r.map(v=>'"'+String(v??"").replaceAll('"','""')+'"').join(";")).join("\n");
+    const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="confirmacoes-theo-2-anos.csv";a.click();URL.revokeObjectURL(a.href);
+  });
+  if(configured){sb.auth.onAuthStateChange(()=>syncAuth());syncAuth()}
+</script>
+</body>
+</html>
