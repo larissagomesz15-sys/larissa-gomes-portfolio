@@ -8,6 +8,7 @@
 <meta name="description" content="Convite para a aventura jurássica de 2 anos do Theo.">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
 <style>
 :root{
   --bg:#06120d;--bg2:#0e2a1c;--green:#b8dc73;--green2:#6b9d49;--gold:#f2bf62;
@@ -176,7 +177,7 @@ footer{text-align:center;padding:34px 20px 60px;color:#7d9183;font-size:.8rem}
     <div class="rex">🦖</div>
     <div class="kicker">T-Rex detectado</div>
     <h2 class="title" style="margin-top:8px">Quer ouvir o rugido?</h2>
-    <p>Agora ele está mais grave, mais forte e com efeito de tremor. Aumente o volume se tiver coragem.</p>
+    <p>Agora o rugido usa o áudio que você escolheu, junto com efeito de tremor. Aumente o volume se tiver coragem.</p>
     <button class="btn btn-main" id="roarBtn">Ouvir rugido do T-Rex</button>
     <div class="sound-warning">Atenção: o som é propositalmente alto.</div>
   </div>
@@ -299,17 +300,65 @@ function countdown(){
   mins.textContent=String(Math.floor(d%3600000/60000)).padStart(2,"0");secs.textContent=String(Math.floor(d%60000/1000)).padStart(2,"0");
 }countdown();setInterval(countdown,1000);
 
+let ytRoarPlayer=null;
+let ytRoarReady=false;
+window.onYouTubeIframeAPIReady=function(){
+  try{
+    ytRoarPlayer=new YT.Player("ytRoar",{
+      height:"1",
+      width:"1",
+      videoId:"g3rIFjCVawc",
+      playerVars:{controls:0,disablekb:1,modestbranding:1,playsinline:1,rel:0},
+      events:{onReady:function(){ytRoarReady=true;}}
+    });
+  }catch(e){}
+};
+
+function visualRoar(){
+  if(navigator.vibrate) navigator.vibrate([140,60,220,55,300]);
+  const fl=document.getElementById("flash");
+  fl.classList.remove("go"); void fl.offsetWidth; fl.classList.add("go");
+  document.body.classList.add("shake");
+  setTimeout(()=>document.body.classList.remove("shake"),900);
+}
+
+function fallbackRoar(){
+  const A=window.AudioContext||window.webkitAudioContext;
+  if(!A)return;
+  const ctx=new A(),now=ctx.currentTime;
+  const compressor=ctx.createDynamicsCompressor();
+  compressor.threshold.value=-14; compressor.knee.value=8; compressor.ratio.value=8;
+  compressor.attack.value=.002; compressor.release.value=.22; compressor.connect(ctx.destination);
+  const master=ctx.createGain();
+  master.gain.setValueAtTime(.0001,now);
+  master.gain.exponentialRampToValueAtTime(1.15,now+.06);
+  master.gain.exponentialRampToValueAtTime(.0001,now+2.25);
+  master.connect(compressor);
+  [[82,31,.82],[63,26,.58],[118,42,.38]].forEach(([start,end,g])=>{
+    const o=ctx.createOscillator(),og=ctx.createGain(),f=ctx.createBiquadFilter();
+    o.type="sawtooth"; o.frequency.setValueAtTime(start,now); o.frequency.exponentialRampToValueAtTime(end,now+2.05);
+    og.gain.value=g; f.type="lowpass"; f.frequency.value=480; f.Q.value=4;
+    o.connect(f); f.connect(og); og.connect(master); o.start(now); o.stop(now+2.3);
+  });
+}
+
 function dinosaurRoar(){
-  const A=window.AudioContext||window.webkitAudioContext;if(!A)return;const ctx=new A(),now=ctx.currentTime;
-  const compressor=ctx.createDynamicsCompressor();compressor.threshold.value=-14;compressor.knee.value=8;compressor.ratio.value=8;compressor.attack.value=.002;compressor.release.value=.22;compressor.connect(ctx.destination);
-  const master=ctx.createGain();master.gain.setValueAtTime(.0001,now);master.gain.exponentialRampToValueAtTime(1.25,now+.06);master.gain.setValueAtTime(1.25,now+.38);master.gain.exponentialRampToValueAtTime(.0001,now+2.25);master.connect(compressor);
-  [[82,31,.82],[63,26,.58],[118,42,.38]].forEach(([start,end,g])=>{const o=ctx.createOscillator(),og=ctx.createGain(),f=ctx.createBiquadFilter();o.type="sawtooth";o.frequency.setValueAtTime(start,now);o.frequency.exponentialRampToValueAtTime(end,now+2.05);og.gain.value=g;f.type="lowpass";f.frequency.value=480;f.Q.value=4;o.connect(f);f.connect(og);og.connect(master);o.start(now);o.stop(now+2.3)});
-  const buf=ctx.createBuffer(1,ctx.sampleRate*2.3,ctx.sampleRate),data=buf.getChannelData(0);for(let i=0;i<data.length;i++){const t=i/data.length;data[i]=(Math.random()*2-1)*(1-t*.82)}
-  const noise=ctx.createBufferSource(),band=ctx.createBiquadFilter(),ng=ctx.createGain();noise.buffer=buf;band.type="bandpass";band.frequency.value=155;band.Q.value=.65;ng.gain.value=.95;noise.connect(band);band.connect(ng);ng.connect(master);noise.start(now);noise.stop(now+2.25);
-  if(navigator.vibrate)navigator.vibrate([120,55,180,45,240]);
-  const fl=document.getElementById("flash");fl.classList.remove("go");void fl.offsetWidth;fl.classList.add("go");document.body.classList.add("shake");setTimeout(()=>document.body.classList.remove("shake"),700)
+  visualRoar();
+  try{
+    if(ytRoarReady && ytRoarPlayer){
+      ytRoarPlayer.seekTo(0,true);
+      ytRoarPlayer.setVolume(100);
+      ytRoarPlayer.playVideo();
+      setTimeout(()=>{try{ytRoarPlayer.pauseVideo();}catch(e){}},7000);
+    }else{
+      fallbackRoar();
+    }
+  }catch(e){
+    fallbackRoar();
+  }
 }
 document.getElementById("roarBtn").addEventListener("click",dinosaurRoar);
 </script>
+<div id="ytRoar" aria-hidden="true" style="position:fixed;width:1px;height:1px;left:-9999px;top:-9999px;overflow:hidden"></div>
 </body>
 </html>
