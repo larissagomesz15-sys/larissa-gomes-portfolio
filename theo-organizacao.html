@@ -70,7 +70,7 @@ body{margin:0;background:radial-gradient(circle at 12% 0,rgba(62,139,82,.2),tran
 
   <section id="itens" class="section" style="display:none">
     <div class="sectionHead">
-      <div><div class="kicker">Checklist completo</div><h2>Itens da festa</h2><p>Status disponíveis: sugestão, a comprar, comprado, encomendado, pago e resolvido.</p></div>
+      <div><div class="kicker">Checklist completo</div><h2>Itens da festa</h2><p>Status disponíveis: sugestão, a comprar, comprado, encomendado, encomendado — falta pagar, pago e resolvido.</p></div>
       <button class="btn alt" id="reloadBtn">Atualizar</button>
     </div>
     <div class="categories" id="categories"></div>
@@ -85,12 +85,12 @@ body{margin:0;background:radial-gradient(circle at 12% 0,rgba(62,139,82,.2),tran
 <script>
 const cfg=window.THEO_INVITE_CONFIG||{},sb=window.supabase.createClient(cfg.supabaseUrl,cfg.supabaseAnonKey);
 let PASS=sessionStorage.getItem("theo_admin_pass")||"",items=[],guests=[];
-const statuses=[["sugestao","Sugestão"],["a_comprar","A comprar"],["comprado","Comprado"],["encomendado","Encomendado"],["pago","Pago"],["resolvido","Resolvido"]];
+const statuses=[["sugestao","Sugestão"],["a_comprar","A comprar"],["comprado","Comprado"],["encomendado","Encomendado"],["encomendado_nao_pago","Encomendado — falta pagar"],["pago","Pago"],["resolvido","Resolvido"]];
 const categoryOrder=["Alimentos","Bebidas","Descartáveis","Mesa e decoração","Estrutura","Crianças","Logística"];
 
 function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
 function setMsg(t,ok=false){const e=document.getElementById("msg");e.className=ok?"success":"error";e.textContent=t||""}
-function resolved(s){return ["comprado","encomendado","pago","resolvido"].includes(s)}
+function resolved(s){return ["comprado","encomendado","encomendado_nao_pago","pago","resolvido"].includes(s)}
 
 async function loadAll(){
   if(!PASS){setMsg("Digite a senha.");return}
