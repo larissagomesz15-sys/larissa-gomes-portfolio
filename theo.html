@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06120d">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Convite • Theo 2 anos</title>
+<meta name="description" content="Convite para a aventura jurássica de 2 anos do Theo.">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./theo-2-anos/config.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+<style>
+:root{
+  --bg:#06120d;--bg2:#0e2a1c;--green:#b8dc73;--green2:#6b9d49;--gold:#f2bf62;
+  --bone:#f6efd9;--text:#fffaf0;--muted:#b8c6bc;--line:rgba(246,239,217,.16);
+  --card:rgba(10,29,19,.88);--shadow:0 26px 80px rgba(0,0,0,.48);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:
+radial-gradient(circle at 12% 8%,rgba(66,141,87,.22),transparent 28rem),
+radial-gradient(circle at 88% 17%,rgba(242,191,98,.08),transparent 24rem),
+linear-gradient(180deg,#04100a,#0a1d14 48%,#06110c);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.08;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 170 170' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E")}
+.wrap{position:relative;z-index:1}
+.hero{min-height:100svh;position:relative;display:grid;place-items:center;overflow:hidden;padding:36px 20px 52px;isolation:isolate}
+.jungle-left,.jungle-right{position:absolute;top:-2%;bottom:-2%;width:min(26vw,260px);z-index:-1;opacity:.88;pointer-events:none}
+.jungle-left{left:0;background:linear-gradient(90deg,#020805,transparent),repeating-linear-gradient(102deg,rgba(35,94,55,.06) 0 24px,rgba(70,128,77,.2) 25px 27px)}
+.jungle-right{right:0;transform:scaleX(-1);background:linear-gradient(90deg,#020805,transparent),repeating-linear-gradient(102deg,rgba(35,94,55,.06) 0 24px,rgba(70,128,77,.2) 25px 27px)}
+.floating{position:absolute;font-size:clamp(42px,8vw,92px);filter:drop-shadow(0 14px 14px rgba(0,0,0,.35));opacity:.9;animation:float 4.5s ease-in-out infinite alternate;user-select:none}
+.f1{left:6%;top:14%}.f2{right:7%;top:18%;animation-delay:-1.2s}.f3{left:8%;bottom:14%;animation-delay:-2s}.f4{right:8%;bottom:11%;animation-delay:-.7s}
+@keyframes float{from{transform:translateY(-6px) rotate(-3deg)}to{transform:translateY(8px) rotate(3deg)}}
+.hero-inner{max-width:980px;text-align:center;margin:auto}
+.kicker{text-transform:uppercase;letter-spacing:.23em;font-size:.72rem;font-weight:950;color:var(--gold)}
+.photo-badge{width:158px;height:158px;border-radius:50%;margin:18px auto 16px;padding:7px;border:1px solid rgba(246,239,217,.4);background:rgba(0,0,0,.28);box-shadow:0 0 0 10px rgba(246,239,217,.03),0 22px 58px rgba(0,0,0,.5);position:relative}
+.photo-badge:after{content:"2";position:absolute;right:-12px;bottom:-8px;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(#f8cf7a,#e5a53f);color:#16301f;font-weight:1000;font-size:2rem;border:4px solid #07150e}
+.photo-badge img{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center 28%}
+.theo-title{font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;font-size:clamp(4.1rem,17vw,9rem);line-height:.82;letter-spacing:-.055em;margin:4px 0 0;font-weight:1000;text-shadow:0 9px 28px rgba(0,0,0,.4)}
+.age-line{font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;color:var(--green);font-size:clamp(1.55rem,6vw,2.8rem);font-weight:1000;margin-top:12px}
+.lead{font-size:clamp(1.05rem,4vw,1.4rem);line-height:1.55;max-width:670px;margin:18px auto 0;color:var(--bone)}
+.hero-data{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:24px auto}
+.pill{border:1px solid var(--line);background:rgba(4,17,11,.64);backdrop-filter:blur(10px);border-radius:999px;padding:10px 14px;font-weight:850;color:var(--bone)}
+.hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn{appearance:none;border:0;border-radius:15px;padding:15px 20px;font-weight:950;font-size:.98rem;text-decoration:none;display:inline-flex;justify-content:center;align-items:center;gap:8px;cursor:pointer}
+.btn-main{background:linear-gradient(#cce982,#8fb44b);color:#0b1b10;box-shadow:0 15px 38px rgba(154,191,82,.17)}
+.btn-dark{background:rgba(7,23,15,.72);color:var(--bone);border:1px solid var(--line)}
+.entry-alert{max-width:740px;margin:22px auto 0;border:1px solid rgba(242,191,98,.28);background:rgba(242,191,98,.07);border-radius:18px;padding:15px 17px;color:#f6e7bf;line-height:1.5}
+.entry-alert strong{color:#ffd982}
+.section{max-width:1080px;margin:auto;padding:72px 20px;position:relative}
+.section:before{content:"";position:absolute;top:0;left:20px;right:20px;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+.title{font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;font-size:clamp(2.2rem,8vw,4.4rem);line-height:1;margin:7px 0 12px;letter-spacing:-.04em}
+.copy{color:var(--muted);line-height:1.72;max-width:720px}
+.invite-card{margin-top:28px;border:1px solid var(--line);border-radius:30px;padding:30px;background:linear-gradient(145deg,rgba(29,72,45,.76),rgba(4,17,10,.94));box-shadow:var(--shadow);position:relative;overflow:hidden}
+.invite-card:after{content:"🦖";position:absolute;right:-25px;bottom:-55px;font-size:220px;opacity:.065;filter:grayscale(1)}
+.invite-card h3{font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;font-size:clamp(2.1rem,7vw,4rem);margin:7px 0 12px;letter-spacing:-.035em}
+.invite-card p{max-width:680px;line-height:1.7;color:#d6dfd8}
+.details{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin-top:22px}
+.detail{border:1px solid var(--line);background:rgba(4,15,9,.6);border-radius:20px;padding:20px}
+.detail small{display:block;color:var(--gold);font-weight:950;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+.detail strong{line-height:1.5}
+.dino-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:26px}
+.dino-card{min-height:170px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(155deg,rgba(32,78,49,.75),rgba(5,18,11,.88));display:grid;place-items:center;text-align:center;padding:15px;box-shadow:var(--shadow)}
+.dino-card .ico{font-size:64px;filter:drop-shadow(0 10px 12px rgba(0,0,0,.35))}
+.dino-card b{display:block;margin-top:8px;font-size:.88rem;color:#e8f2d3}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:28px}
+.count{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 8px;text-align:center;box-shadow:var(--shadow)}
+.count b{display:block;color:var(--green);font-size:clamp(1.9rem,8vw,3.7rem);font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif}
+.count span{text-transform:uppercase;letter-spacing:.11em;color:var(--muted);font-size:.7rem}
+.roar-box{border:1px solid rgba(185,220,115,.24);background:linear-gradient(180deg,rgba(29,76,46,.55),rgba(4,16,10,.8));border-radius:30px;padding:34px 22px;text-align:center;box-shadow:var(--shadow)}
+.roar-box .rex{font-size:78px;filter:drop-shadow(0 14px 16px rgba(0,0,0,.4))}
+.roar-box p{color:var(--muted);max-width:600px;margin:10px auto 18px;line-height:1.6}
+.sound-warning{font-size:.78rem;color:#f5d99b;margin-top:9px;font-weight:800}
+.rsvp-card{margin-top:28px;background:linear-gradient(180deg,rgba(18,45,29,.96),rgba(6,20,12,.96));border:1px solid rgba(185,220,115,.24);border-radius:30px;padding:28px;box-shadow:var(--shadow)}
+.important{margin:18px 0 24px;border-left:4px solid var(--gold);background:rgba(242,191,98,.075);padding:14px 15px;border-radius:0 14px 14px 0;line-height:1.55;color:#eadfc7}
+.important strong{color:#ffda8e}
+label{display:block;color:var(--bone);font-size:.84rem;font-weight:900;margin:14px 0 7px}
+input,textarea{width:100%;border:1px solid rgba(246,239,217,.16);background:rgba(0,0,0,.22);color:white;border-radius:13px;padding:13px 14px;font:inherit;outline:none}
+input:focus,textarea:focus{border-color:rgba(185,220,115,.6);box-shadow:0 0 0 3px rgba(185,220,115,.07)}
+.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.status{position:relative;margin:0}.status input{position:absolute;opacity:0}.status span{display:grid;place-items:center;text-align:center;min-height:62px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03);font-weight:900;cursor:pointer;padding:8px}
+.status input:checked+span{border-color:var(--green);background:rgba(185,220,115,.11);color:var(--green)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.guest-fields{margin-top:18px;border:1px solid var(--line);border-radius:18px;padding:18px;background:rgba(0,0,0,.13)}
+.guest-head{font-weight:1000;color:var(--green);margin-bottom:5px}.guest-help{font-size:.8rem;color:var(--muted);line-height:1.5;margin-bottom:10px}
+.guest-row{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:center}.guest-row+.guest-row{margin-top:9px}.guest-row span{font-size:.78rem;color:#d6ddd8;font-weight:900}.guest-row input{margin:0}
+.submit{width:100%;margin-top:20px;border:0;border-radius:15px;padding:16px;background:linear-gradient(#cce982,#91b64c);color:#0b1b10;font-weight:1000;font-size:1rem;cursor:pointer}
+.submit[disabled]{opacity:.55}.error{display:none;color:#ffc0b3;font-size:.86rem;margin-top:10px}.success{display:none;margin-top:14px;padding:15px;border:1px solid rgba(185,220,115,.3);border-radius:14px;background:rgba(185,220,115,.08);color:#dff0b1;line-height:1.5}.setup{display:none;margin-top:12px;padding:12px;border-radius:12px;background:rgba(242,191,98,.08);border:1px solid rgba(242,191,98,.2);color:#f1cf8a;font-size:.82rem;line-height:1.45}
+footer{text-align:center;padding:34px 20px 60px;color:#7d9183;font-size:.8rem}
+.flash{position:fixed;inset:0;z-index:50;pointer-events:none;background:rgba(185,220,115,.085);opacity:0}.flash.go{animation:flash .8s ease}@keyframes flash{0%{opacity:0}22%{opacity:1}100%{opacity:0}}.shake{animation:shake .65s linear}@keyframes shake{0%,100%{transform:translate(0)}12%{transform:translate(3px,-2px)}25%{transform:translate(-4px,2px)}40%{transform:translate(3px,3px)}58%{transform:translate(-3px,-1px)}75%{transform:translate(2px,-2px)}}
+@media(max-width:820px){.dino-strip{grid-template-columns:1fr 1fr}.details{grid-template-columns:1fr}.hero-actions .btn{width:min(100%,360px)}}
+@media(max-width:520px){.countdown{gap:6px}.count{padding:14px 3px}.status-grid{grid-template-columns:1fr}.status span{min-height:50px}.two{grid-template-columns:1fr}.guest-row{grid-template-columns:1fr;gap:5px}.dino-strip{gap:8px}.dino-card{min-height:145px}.dino-card .ico{font-size:54px}.photo-badge{width:142px;height:142px}}
+</style>
+</head>
+<body data-build="91">
+<div class="flash" id="flash"></div>
+<div class="wrap">
+<header class="hero">
+<div class="jungle-left"></div><div class="jungle-right"></div>
+<div class="floating f1">🌿</div><div class="floating f2">🦕</div><div class="floating f3">🥚</div><div class="floating f4">🦖</div>
+<div class="hero-inner">
+  <div class="kicker">Convite de aniversário • expedição jurássica</div>
+  <div class="photo-badge"><img src="./theo-2-anos/assets/theo-1.jpg?v=6" alt="Theo sorrindo"></div>
+  <h1 class="theo-title">Theo</h1>
+  <div class="age-line">vai fazer 2 anos!</div>
+  <p class="lead">Nosso pequeno explorador está completando 2 anos e queremos você com a gente nessa aventura cheia de dinossauros, brincadeiras e muita festa.</p>
+  <div class="hero-data"><span class="pill">8 de novembro</span><span class="pill">16h</span><span class="pill">Méier</span></div>
+  <div class="hero-actions">
+    <a class="btn btn-main" href="#convite">Abrir convite</a>
+    <a class="btn btn-dark" href="#confirmar">Confirmar presença</a>
+  </div>
+  <div class="entry-alert"><strong>Importante:</strong> a confirmação será usada para organizar a lista de entrada do salão. Por isso, precisamos do nome de <strong>todos os adultos e crianças</strong> que irão à festa.</div>
+</div>
+</header>
+
+<main>
+<section class="section" id="convite">
+  <div class="kicker">Você foi convidado</div>
+  <h2 class="title">A aventura do Theo está chegando</h2>
+  <div class="invite-card">
+    <div class="kicker">Missão especial: comemorar</div>
+    <h3>2 anos do nosso pequeno dinossauro</h3>
+    <p>Prepare-se para uma tarde jurássica feita para celebrar o Theo. Vai ter dinossauro, festa, brincadeira e muita alegria. Sua presença vai deixar esse dia ainda mais especial.</p>
+    <div class="details">
+      <div class="detail"><small>Data</small><strong>Domingo, 8 de novembro de 2026</strong></div>
+      <div class="detail"><small>Horário</small><strong>16h</strong></div>
+      <div class="detail"><small>Endereço</small><strong>Rua Silva Rabelo, 91, Méier<br>Salão de festas do condomínio</strong></div>
+      <div class="detail"><small>Referência</small><strong>Atrás do Hospital Pasteur</strong></div>
+    </div>
+    <div class="hero-actions" style="justify-content:flex-start;margin-top:18px"><a class="btn btn-dark" id="mapsBtn" target="_blank" rel="noopener">Abrir localização</a></div>
+  </div>
+
+  <div class="dino-strip">
+    <div class="dino-card"><div><div class="ico">🦖</div><b>T-Rex de plantão</b></div></div>
+    <div class="dino-card"><div><div class="ico">🦕</div><b>Turma jurássica</b></div></div>
+    <div class="dino-card"><div><div class="ico">🎂</div><b>2 velinhas</b></div></div>
+    <div class="dino-card"><div><div class="ico">🎈</div><b>Festa e aventura</b></div></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="kicker">Contagem regressiva</div>
+  <h2 class="title">O parque abre em...</h2>
+  <p class="copy">Dia 8 de novembro, às 16h, começa a expedição.</p>
+  <div class="countdown">
+    <div class="count"><b id="days">--</b><span>dias</span></div>
+    <div class="count"><b id="hours">--</b><span>horas</span></div>
+    <div class="count"><b id="mins">--</b><span>minutos</span></div>
+    <div class="count"><b id="secs">--</b><span>segundos</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="roar-box">
+    <div class="rex">🦖</div>
+    <div class="kicker">T-Rex detectado</div>
+    <h2 class="title" style="margin-top:8px">Quer ouvir o rugido?</h2>
+    <p>Agora o rugido usa o áudio que você escolheu, junto com efeito de tremor. Aumente o volume se tiver coragem.</p>
+    <button class="btn btn-main" id="roarBtn">Ouvir rugido do T-Rex</button>
+    <div class="sound-warning">Atenção: o som é propositalmente alto.</div>
+  </div>
+</section>
+
+<section class="section" id="confirmar">
+  <div class="kicker">Lista de entrada do salão</div>
+  <h2 class="title">Confirme quem vai</h2>
+  <p class="copy">Para organizarmos a entrada e a quantidade de convidados, preencha a confirmação abaixo com atenção.</p>
+  <div class="rsvp-card">
+    <form id="rsvpForm">
+      <div class="important"><strong>Confirmação importante para a entrada:</strong> o nome de cada pessoa precisa constar na lista. Se você for com outras pessoas, informe o nome de <strong>todos os adultos e de todas as crianças</strong>. Exemplo: 1 adulto + 2 crianças = 3 nomes preenchidos.</div>
+
+      <label>Vocês vão?</label>
+      <div class="status-grid">
+        <label class="status"><input type="radio" name="status" value="sim" required><span>Sim, vamos</span></label>
+        <label class="status"><input type="radio" name="status" value="talvez"><span>Ainda vou pensar</span></label>
+        <label class="status"><input type="radio" name="status" value="nao"><span>Não vamos conseguir</span></label>
+      </div>
+
+      <div id="partyArea">
+        <div class="two">
+          <div><label for="adults">Quantos adultos?</label><input id="adults" type="number" min="1" max="10" value="1" inputmode="numeric"></div>
+          <div><label for="children">Quantas crianças?</label><input id="children" type="number" min="0" max="10" value="0" inputmode="numeric"></div>
+        </div>
+        <div class="guest-fields">
+          <div class="guest-head">Nome de todos que irão</div>
+          <div class="guest-help">Inclua você também. Os campos aparecem automaticamente de acordo com a quantidade informada.</div>
+          <div id="guestInputs"></div>
+        </div>
+      </div>
+
+      <div id="noArea" style="display:none">
+        <label for="declineName">Seu nome</label>
+        <input id="declineName" maxlength="80" placeholder="Digite seu nome">
+      </div>
+
+      <label for="note">Observação <span style="color:#7d9183;font-weight:500">(opcional)</span></label>
+      <textarea id="note" rows="2" maxlength="250" placeholder="Se precisar, deixe um recado"></textarea>
+      <button class="submit" id="submitBtn" type="submit">Enviar confirmação</button>
+      <div class="error" id="errorMsg"></div>
+      <div class="success" id="successMsg"></div>
+      <div class="setup" id="setupMsg">O convite está funcionando visualmente. Para as respostas aparecerem no seu painel privado, ainda precisamos conectar o banco de dados.</div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>Convite pessoal • Theo 2 anos • 8 de novembro de 2026</footer>
+</div>
+
+<script>
+const cfg=window.THEO_INVITE_CONFIG||{},eventCfg=cfg.event||{};
+const configured=cfg.supabaseUrl&&!cfg.supabaseUrl.includes("PASTE_")&&cfg.supabaseAnonKey&&!cfg.supabaseAnonKey.includes("PASTE_");
+const sb=configured?window.supabase.createClient(cfg.supabaseUrl,cfg.supabaseAnonKey):null;
+const form=document.getElementById("rsvpForm"),adultEl=document.getElementById("adults"),childEl=document.getElementById("children"),guestInputs=document.getElementById("guestInputs");
+const partyArea=document.getElementById("partyArea"),noArea=document.getElementById("noArea"),errorMsg=document.getElementById("errorMsg"),successMsg=document.getElementById("successMsg"),setupMsg=document.getElementById("setupMsg"),submitBtn=document.getElementById("submitBtn");
+document.getElementById("mapsBtn").href=eventCfg.mapsUrl||"#";
+let deviceId=localStorage.getItem("theo_device_id");
+if(!deviceId){deviceId=(crypto.randomUUID?crypto.randomUUID():"d-"+Date.now()+"-"+Math.random().toString(16).slice(2));localStorage.setItem("theo_device_id",deviceId)}
+let saved=JSON.parse(localStorage.getItem("theo_rsvp")||"null");
+if(!configured)setupMsg.style.display="block";
+
+function escAttr(s){return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function currentStatus(){return new FormData(form).get("status")}
+function guestSnapshot(){return [...guestInputs.querySelectorAll("input")].map(i=>i.value)}
+function renderGuests(values=[]){
+  const adults=Math.min(10,Math.max(1,Number(adultEl.value||1))),children=Math.min(10,Math.max(0,Number(childEl.value||0)));
+  adultEl.value=adults;childEl.value=children;let html="",k=0;
+  for(let i=0;i<adults;i++,k++)html+=`<div class="guest-row"><span>${i===0?"Adulto 1 (você)":"Adulto "+(i+1)}</span><input class="guest-name" data-type="adult" maxlength="80" required placeholder="Nome completo" value="${escAttr(values[k]||"")}"></div>`;
+  for(let i=0;i<children;i++,k++)html+=`<div class="guest-row"><span>Criança ${i+1}</span><input class="guest-name" data-type="child" maxlength="80" required placeholder="Nome da criança" value="${escAttr(values[k]||"")}"></div>`;
+  guestInputs.innerHTML=html;
+}
+function toggleStatus(){
+  const decline=currentStatus()==="nao";partyArea.style.display=decline?"none":"block";noArea.style.display=decline?"block":"none";
+  document.getElementById("declineName").required=decline;
+}
+adultEl.addEventListener("input",()=>renderGuests(guestSnapshot()));childEl.addEventListener("input",()=>renderGuests(guestSnapshot()));
+document.querySelectorAll('input[name="status"]').forEach(x=>x.addEventListener("change",toggleStatus));
+renderGuests();
+
+function prefill(){
+  if(!saved)return;const r=document.querySelector('input[name="status"][value="'+saved.status+'"]');if(r)r.checked=true;
+  adultEl.value=saved.adults||1;childEl.value=saved.children||0;document.getElementById("note").value=saved.note||"";document.getElementById("declineName").value=saved.name||"";
+  renderGuests((saved.guests||[]).map(g=>g.name));toggleStatus();
+}
+prefill();
+
+form.addEventListener("submit",async e=>{
+  e.preventDefault();errorMsg.style.display="none";successMsg.style.display="none";
+  const status=currentStatus();if(!status){errorMsg.textContent="Escolha uma opção de presença.";errorMsg.style.display="block";return}
+  let adults=0,children=0,guests=[],name="";
+  if(status==="nao"){
+    name=document.getElementById("declineName").value.trim();if(!name){errorMsg.textContent="Preencha seu nome.";errorMsg.style.display="block";return}
+    adults=1;guests=[{type:"adult",name}];
+  }else{
+    adults=Number(adultEl.value||1);children=Number(childEl.value||0);
+    const inputs=[...guestInputs.querySelectorAll(".guest-name")];guests=inputs.map(i=>({type:i.dataset.type,name:i.value.trim()}));
+    if(guests.some(g=>!g.name)){errorMsg.textContent="Preencha o nome de todos os adultos e crianças para a lista de entrada.";errorMsg.style.display="block";return}
+    if(guests.length!==adults+children){errorMsg.textContent="Confira a quantidade de pessoas e os nomes preenchidos.";errorMsg.style.display="block";return}
+    name=guests[0].name;
+  }
+  const payload={name,status,adults,children,guests,note:document.getElementById("note").value.trim()};
+  submitBtn.disabled=true;submitBtn.textContent="Enviando...";
+  try{
+    if(configured){
+      const {error}=await sb.rpc("submit_rsvp_v2",{p_device_id:deviceId,p_name:name,p_status:status,p_adults:adults,p_children:children,p_guests:guests,p_note:payload.note||null});
+      if(error)throw error;
+    }
+    localStorage.setItem("theo_rsvp",JSON.stringify(payload));saved=payload;
+    successMsg.textContent=status==="sim"?"Presença confirmada! Todos os nomes foram colocados na lista da festa.":status==="talvez"?"Resposta salva. Você pode voltar e atualizar depois.":"Resposta salva. Obrigada por avisar!";
+    successMsg.style.display="block";successMsg.scrollIntoView({behavior:"smooth",block:"center"});
+  }catch(err){errorMsg.textContent="Não consegui salvar agora. Tente novamente em alguns segundos.";errorMsg.style.display="block"}
+  finally{submitBtn.disabled=false;submitBtn.textContent="Enviar confirmação"}
+});
+
+function countdown(){
+  const target=new Date(eventCfg.dateISO||"2026-11-08T16:00:00-03:00").getTime(),d=Math.max(0,target-Date.now());
+  days.textContent=Math.floor(d/86400000);hours.textContent=String(Math.floor(d%86400000/3600000)).padStart(2,"0");
+  mins.textContent=String(Math.floor(d%3600000/60000)).padStart(2,"0");secs.textContent=String(Math.floor(d%60000/1000)).padStart(2,"0");
+}countdown();setInterval(countdown,1000);
+
+let ytRoarPlayer=null;
+let ytRoarReady=false;
+window.onYouTubeIframeAPIReady=function(){
+  try{
+    ytRoarPlayer=new YT.Player("ytRoar",{
+      height:"1",
+      width:"1",
+      videoId:"g3rIFjCVawc",
+      playerVars:{controls:0,disablekb:1,modestbranding:1,playsinline:1,rel:0},
+      events:{onReady:function(){ytRoarReady=true;}}
+    });
+  }catch(e){}
+};
+
+function visualRoar(){
+  if(navigator.vibrate) navigator.vibrate([140,60,220,55,300]);
+  const fl=document.getElementById("flash");
+  fl.classList.remove("go"); void fl.offsetWidth; fl.classList.add("go");
+  document.body.classList.add("shake");
+  setTimeout(()=>document.body.classList.remove("shake"),900);
+}
+
+function fallbackRoar(){
+  const A=window.AudioContext||window.webkitAudioContext;
+  if(!A)return;
+  const ctx=new A(),now=ctx.currentTime;
+  const compressor=ctx.createDynamicsCompressor();
+  compressor.threshold.value=-14; compressor.knee.value=8; compressor.ratio.value=8;
+  compressor.attack.value=.002; compressor.release.value=.22; compressor.connect(ctx.destination);
+  const master=ctx.createGain();
+  master.gain.setValueAtTime(.0001,now);
+  master.gain.exponentialRampToValueAtTime(1.15,now+.06);
+  master.gain.exponentialRampToValueAtTime(.0001,now+2.25);
+  master.connect(compressor);
+  [[82,31,.82],[63,26,.58],[118,42,.38]].forEach(([start,end,g])=>{
+    const o=ctx.createOscillator(),og=ctx.createGain(),f=ctx.createBiquadFilter();
+    o.type="sawtooth"; o.frequency.setValueAtTime(start,now); o.frequency.exponentialRampToValueAtTime(end,now+2.05);
+    og.gain.value=g; f.type="lowpass"; f.frequency.value=480; f.Q.value=4;
+    o.connect(f); f.connect(og); og.connect(master); o.start(now); o.stop(now+2.3);
+  });
+}
+
+function dinosaurRoar(){
+  visualRoar();
+  try{
+    if(ytRoarReady && ytRoarPlayer){
+      ytRoarPlayer.seekTo(0,true);
+      ytRoarPlayer.setVolume(100);
+      ytRoarPlayer.playVideo();
+      setTimeout(()=>{try{ytRoarPlayer.pauseVideo();}catch(e){}},7000);
+    }else{
+      fallbackRoar();
+    }
+  }catch(e){
+    fallbackRoar();
+  }
+}
+document.getElementById("roarBtn").addEventListener("click",dinosaurRoar);
+</script>
+<div id="ytRoar" aria-hidden="true" style="position:fixed;width:1px;height:1px;left:-9999px;top:-9999px;overflow:hidden"></div>
+</body>
+</html>
