@@ -6,182 +6,167 @@
 <meta name="theme-color" content="#06120d">
 <title>Organização • Theo 2 anos</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./theo-2-anos/config.js?v=111"></script>
+<script src="./theo-2-anos/config.js?v=121"></script>
 <style>
-:root{--bg:#06120d;--bg2:#0d2418;--card:#102c1d;--card2:#0a1d14;--line:rgba(246,239,217,.14);--txt:#fffaf0;--muted:#aebcb2;--green:#b8dc73;--green2:#86ad48;--gold:#f2bf62;--red:#ffb1a6}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:
-radial-gradient(circle at 10% 5%,rgba(62,139,82,.2),transparent 30rem),
-linear-gradient(180deg,#04100a,#0a1d14 55%,#06120d);
-color:var(--txt);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E")}
-.wrap{max-width:1180px;margin:auto;padding:26px 18px 70px}.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:18px;align-items:stretch}.heroCard,.panel{border:1px solid var(--line);background:linear-gradient(145deg,rgba(20,55,36,.94),rgba(6,20,12,.96));border-radius:26px;box-shadow:0 24px 70px rgba(0,0,0,.32)}
-.heroCard{padding:28px;position:relative;overflow:hidden}.heroCard:after{content:"🦖";position:absolute;right:-12px;bottom:-36px;font-size:170px;opacity:.08}.kicker{font-size:.72rem;text-transform:uppercase;letter-spacing:.19em;color:var(--gold);font-weight:950}.title{font-size:clamp(2.4rem,7vw,5rem);line-height:.9;letter-spacing:-.055em;margin:8px 0 14px;font-weight:1000}.lead{max-width:680px;color:#dce4de;line-height:1.65}.miniHero{padding:24px;display:grid;align-content:center}.miniHero b{font-size:3.5rem;color:var(--green);line-height:1}.miniHero span{color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.09em}
-.nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 0}.chip{border:1px solid var(--line);background:rgba(0,0,0,.15);color:var(--txt);text-decoration:none;padding:9px 12px;border-radius:999px;font-weight:850;font-size:.85rem}
-.gridStats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:18px 0}.stat{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:15px}.stat b{display:block;font-size:1.7rem;color:var(--green)}.stat span{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.07em}
-.section{margin-top:28px}.sectionHead{display:flex;justify-content:space-between;gap:14px;align-items:end;margin-bottom:12px}.sectionHead h2{margin:0;font-size:clamp(1.6rem,4vw,2.6rem);letter-spacing:-.035em}.sectionHead p{margin:4px 0 0;color:var(--muted);font-size:.9rem}
-.progressWrap{height:12px;border-radius:999px;background:#07160f;border:1px solid var(--line);overflow:hidden}.progress{height:100%;width:0;background:linear-gradient(90deg,var(--green2),var(--green));transition:.25s}.progressText{font-size:.8rem;color:var(--muted);margin-top:6px}
-.panel{padding:18px}.categoryGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.category{border:1px solid var(--line);background:rgba(5,18,11,.52);border-radius:20px;padding:16px}.catTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.catTitle h3{margin:0;font-size:1.1rem}.badge{font-size:.72rem;padding:5px 8px;border-radius:999px;background:rgba(185,220,115,.1);color:var(--green);font-weight:900}
-.item{display:grid;grid-template-columns:34px 1fr 95px 110px;gap:9px;align-items:center;padding:10px 0;border-top:1px solid rgba(246,239,217,.085)}.item:first-of-type{border-top:0}.check{width:24px;height:24px;accent-color:#9bc45a}.name{font-weight:850}.name small{display:block;color:var(--muted);font-weight:500;margin-top:3px}.qty,.resp{width:100%;background:#08180f;color:white;border:1px solid var(--line);border-radius:10px;padding:8px;font:inherit;font-size:.82rem}.done .name{text-decoration:line-through;color:#91a397}.done{opacity:.72}
-.addRow{display:grid;grid-template-columns:1fr 110px 110px auto;gap:8px;margin-top:12px}.addRow input,.addRow select,.input{background:#08180f;color:white;border:1px solid var(--line);border-radius:11px;padding:10px;font:inherit}.btn{border:0;border-radius:12px;padding:10px 14px;font-weight:950;cursor:pointer;background:linear-gradient(#cce982,#91b64c);color:#0b1b10}.btn.alt{background:#153524;color:white;border:1px solid var(--line)}
-.guestBox{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}.guestBox input{width:100%}.guestList{margin-top:14px;display:grid;gap:8px}.guestRow{display:grid;grid-template-columns:1fr 110px 90px 90px;gap:8px;padding:11px 0;border-top:1px solid var(--line)}.guestRow:first-child{border-top:0}.guestNames{color:#dce5df;font-size:.86rem;line-height:1.45}.tag{display:inline-block;padding:5px 8px;border-radius:999px;font-size:.7rem;font-weight:950;background:#173b27}.tag.talvez{background:#3a3219}.tag.nao{background:#3a1e1b}
-.suggestions{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.suggestion{border:1px dashed rgba(242,191,98,.25);background:rgba(242,191,98,.05);border-radius:16px;padding:14px}.suggestion b{color:#ffd982}.suggestion p{color:#d9cfbb;margin:6px 0 0;line-height:1.5;font-size:.86rem}
-.notice{margin-top:12px;color:#d7e5db;font-size:.86rem;line-height:1.55;background:rgba(185,220,115,.06);border:1px solid rgba(185,220,115,.18);padding:12px;border-radius:13px}
-@media(max-width:900px){.hero{grid-template-columns:1fr}.gridStats{grid-template-columns:repeat(3,1fr)}.categoryGrid{grid-template-columns:1fr}.suggestions{grid-template-columns:1fr 1fr}}
-@media(max-width:620px){.wrap{padding:16px 11px 50px}.gridStats{grid-template-columns:repeat(2,1fr)}.heroCard{padding:22px}.item{grid-template-columns:32px 1fr}.qty,.resp{grid-column:auto/span 1}.addRow{grid-template-columns:1fr 1fr}.guestBox{grid-template-columns:1fr}.guestRow{grid-template-columns:1fr 1fr}.suggestions{grid-template-columns:1fr}.sectionHead{align-items:flex-start;flex-direction:column}}
+:root{--bg:#06120d;--card:#102c1d;--line:rgba(246,239,217,.14);--txt:#fffaf0;--muted:#aebcb2;--green:#b8dc73;--gold:#f2bf62;--red:#ffb1a6}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 12% 0,rgba(62,139,82,.2),transparent 30rem),linear-gradient(180deg,#04100a,#0a1d14 55%,#06120d);color:var(--txt);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+.wrap{max-width:1180px;margin:auto;padding:20px 14px 70px}
+.hero,.panel{border:1px solid var(--line);background:linear-gradient(145deg,rgba(20,55,36,.94),rgba(6,20,12,.96));border-radius:24px;box-shadow:0 24px 70px rgba(0,0,0,.28)}
+.hero{padding:26px;position:relative;overflow:hidden}.hero:after{content:"🦖";position:absolute;right:-14px;bottom:-48px;font-size:185px;opacity:.08}
+.kicker{text-transform:uppercase;letter-spacing:.18em;color:var(--gold);font-size:.7rem;font-weight:950}
+.title{font-size:clamp(2.4rem,7vw,5rem);line-height:.92;letter-spacing:-.05em;margin:7px 0 12px}
+.lead{color:#dce4de;max-width:780px;line-height:1.6}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.chip{border:1px solid var(--line);padding:8px 11px;border-radius:999px;color:white;text-decoration:none;font-weight:850;font-size:.82rem;background:rgba(0,0,0,.13)}
+.lock{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:16px;max-width:520px}
+.input,select,textarea{width:100%;background:#08180f;color:white;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit}
+.btn{border:0;border-radius:11px;padding:10px 14px;font-weight:950;cursor:pointer;background:linear-gradient(#cce982,#91b64c);color:#0b1b10}.btn.alt{background:#153524;color:white;border:1px solid var(--line)}.btn.danger{background:#3a1e1b;color:#ffd7d2;border:1px solid rgba(255,177,166,.2)}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:18px 0}.stat{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:15px}.stat b{display:block;font-size:1.7rem;color:var(--green)}.stat span{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.section{margin-top:26px}.sectionHead{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:10px}.sectionHead h2{margin:0;font-size:clamp(1.6rem,4vw,2.5rem)}.sectionHead p{margin:4px 0 0;color:var(--muted);font-size:.9rem}
+.panel{padding:16px}.categories{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.category{border:1px solid var(--line);border-radius:18px;padding:14px;background:rgba(5,18,11,.5)}
+.catHead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}.catHead h3{margin:0}.badge{font-size:.72rem;padding:5px 8px;border-radius:999px;background:rgba(185,220,115,.1);color:var(--green);font-weight:900}
+.item{display:grid;grid-template-columns:1.35fr .85fr .85fr .85fr auto;gap:8px;padding:11px 0;border-top:1px solid rgba(246,239,217,.08);align-items:center}.item:first-of-type{border-top:0}.item .name{font-weight:900}.item .notes{grid-column:1/-1;color:var(--muted);font-size:.82rem;line-height:1.4}
+.add{display:grid;grid-template-columns:1.2fr .7fr .7fr .8fr auto;gap:8px;margin-top:12px;padding-top:12px;border-top:1px dashed rgba(246,239,217,.14)}.add textarea{grid-column:1/-1;min-height:58px}
+.guestList{display:grid;gap:8px}.guestRow{display:grid;grid-template-columns:1.5fr .8fr .7fr .7fr;gap:8px;padding:10px 0;border-top:1px solid var(--line)}.guestRow:first-child{border-top:0}.guestNames{font-size:.82rem;color:#dce5df;margin-top:4px}.tag{display:inline-block;padding:5px 8px;border-radius:999px;font-size:.7rem;font-weight:950;background:#173b27}.tag.talvez{background:#3a3219}.tag.nao{background:#3a1e1b}
+.progressWrap{height:11px;border-radius:999px;background:#07160f;border:1px solid var(--line);overflow:hidden}.progress{height:100%;background:linear-gradient(90deg,#86ad48,#b8dc73);width:0}.saveNote{color:var(--muted);font-size:.8rem}.error{color:var(--red);margin-top:8px}.success{color:#dff0b1;margin-top:8px}
+@media(max-width:900px){.stats{grid-template-columns:repeat(3,1fr)}.categories{grid-template-columns:1fr}.item{grid-template-columns:1fr 1fr}.item .name{grid-column:1/-1}.add{grid-template-columns:1fr 1fr}.add textarea{grid-column:1/-1}.guestRow{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}.lock{grid-template-columns:1fr}.item{grid-template-columns:1fr}.item .name,.item .notes{grid-column:1}.add{grid-template-columns:1fr}.guestRow{grid-template-columns:1fr}.wrap{padding:14px 10px 50px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<section class="hero">
-  <div class="heroCard">
+  <section class="hero">
     <div class="kicker">Central da festa • Expedição jurássica</div>
     <h1 class="title">Organização do Theo</h1>
-    <p class="lead">Tudo da festa em um lugar só: convidados, comida, bebidas, decoração, estrutura, pagamentos e o que ainda falta resolver.</p>
+    <p class="lead">Checklist completo da festa para cerca de 80 convidados. Você pode editar quantidades, responsáveis e status, adicionar itens e excluir o que não quiser.</p>
     <div class="nav">
-      <a class="chip" href="#resumo">Resumo</a><a class="chip" href="#comida">Comidas</a><a class="chip" href="#estrutura">Estrutura</a><a class="chip" href="#convidados">Convidados</a><a class="chip" href="#sugestoes">Sugestões</a>
+      <a class="chip" href="#itens">Itens da festa</a>
+      <a class="chip" href="#convidados">Convidados</a>
+      <a class="chip" href="theo-dashboard.html">Dashboard</a>
+      <a class="chip" href="theo.html">Convite</a>
     </div>
-  </div>
-  <div class="miniHero">
-    <div class="kicker">Progresso geral</div>
-    <b id="pct">0%</b>
-    <span>da organização concluída</span>
-    <div class="progressWrap" style="margin-top:16px"><div class="progress" id="progress"></div></div>
-  </div>
-</section>
-
-<section id="resumo" class="section">
-  <div class="gridStats">
-    <div class="stat"><b id="doneCount">0</b><span>Itens resolvidos</span></div>
-    <div class="stat"><b id="pendingCount">0</b><span>Pendências</span></div>
-    <div class="stat"><b id="guestConfirmed">—</b><span>Confirmados</span></div>
-    <div class="stat"><b id="adultCount">—</b><span>Adultos</span></div>
-    <div class="stat"><b id="childCount">—</b><span>Crianças</span></div>
-    <div class="stat"><b id="totalPeople">—</b><span>Total de pessoas</span></div>
-  </div>
-</section>
-
-<section id="comida" class="section">
-  <div class="sectionHead"><div><div class="kicker">Comidas e bebidas</div><h2>Cardápio e compras</h2><p>Marque o que já está resolvido e ajuste quantidades e responsáveis.</p></div></div>
-  <div class="categoryGrid" id="foodGrid"></div>
-</section>
-
-<section id="estrutura" class="section">
-  <div class="sectionHead"><div><div class="kicker">Festa funcionando</div><h2>Estrutura, mesa e decoração</h2><p>Checklist para não esquecer os detalhes de montagem e serviço.</p></div></div>
-  <div class="categoryGrid" id="structureGrid"></div>
-</section>
-
-<section id="convidados" class="section">
-  <div class="sectionHead"><div><div class="kicker">Lista conectada ao convite</div><h2>Convidados</h2><p>Use a mesma senha do dashboard para puxar as confirmações do site.</p></div></div>
-  <div class="panel">
-    <div class="guestBox">
-      <div><label class="kicker" for="dashPass">Senha do dashboard</label><input class="input" id="dashPass" type="password" placeholder="Digite a senha"></div>
-      <button class="btn" id="loadGuests">Carregar convidados</button>
+    <div class="lock">
+      <input class="input" id="pass" type="password" placeholder="Senha do painel">
+      <button class="btn" id="enterBtn">Abrir organização</button>
     </div>
-    <div class="notice">A senha fica apenas nesta aba do navegador. A lista não é exibida publicamente.</div>
-    <div class="guestList" id="guestList"></div>
-  </div>
-</section>
+    <div id="msg"></div>
+  </section>
 
-<section id="sugestoes" class="section">
-  <div class="sectionHead"><div><div class="kicker">Para conferir antes do dia</div><h2>Sugestões do que costuma faltar</h2><p>São lembretes; você pode ignorar o que não se aplicar à sua festa.</p></div></div>
-  <div class="suggestions">
-    <div class="suggestion"><b>Serviço</b><p>Guardanapos, copos, pratos, talheres, bandejas, pegadores e sacos de lixo.</p></div>
-    <div class="suggestion"><b>Bebidas</b><p>Água, refrigerante, suco, gelo, baldes ou caixas térmicas.</p></div>
-    <div class="suggestion"><b>Mesa principal</b><p>Toalha, boleira, suportes de doces, vela, faca do bolo e isqueiro.</p></div>
-    <div class="suggestion"><b>Entrada do salão</b><p>Lista de convidados, orientação de entrada pela garagem e contato de quem recebe.</p></div>
-    <div class="suggestion"><b>Crianças</b><p>Lembrancinhas, espaço para brincar, água disponível e itens de higiene.</p></div>
-    <div class="suggestion"><b>Última checagem</b><p>Horário de entrega dos fornecedores, quem recebe cada item e forma de pagamento restante.</p></div>
-  </div>
-</section>
+  <section id="summary" style="display:none">
+    <div class="stats">
+      <div class="stat"><b id="done">0</b><span>Resolvidos</span></div>
+      <div class="stat"><b id="pending">0</b><span>Pendentes</span></div>
+      <div class="stat"><b id="confirmed">0</b><span>RSVP confirmados</span></div>
+      <div class="stat"><b id="adults">0</b><span>Adultos</span></div>
+      <div class="stat"><b id="children">0</b><span>Crianças</span></div>
+      <div class="stat"><b id="people">0</b><span>Total pessoas</span></div>
+    </div>
+    <div class="panel">
+      <div class="kicker">Progresso geral</div>
+      <div class="progressWrap" style="margin-top:10px"><div class="progress" id="progress"></div></div>
+      <div class="saveNote" id="progressText" style="margin-top:6px"></div>
+    </div>
+  </section>
+
+  <section id="itens" class="section" style="display:none">
+    <div class="sectionHead">
+      <div><div class="kicker">Checklist completo</div><h2>Itens da festa</h2><p>Status disponíveis: sugestão, a comprar, comprado, encomendado, pago e resolvido.</p></div>
+      <button class="btn alt" id="reloadBtn">Atualizar</button>
+    </div>
+    <div class="categories" id="categories"></div>
+  </section>
+
+  <section id="convidados" class="section" style="display:none">
+    <div class="sectionHead"><div><div class="kicker">Do convite</div><h2>Convidados</h2><p>A lista vem do mesmo banco do formulário.</p></div></div>
+    <div class="panel"><div class="guestList" id="guestList"></div></div>
+  </section>
 </div>
 
 <script>
-const defaultData={
-  food:[
-    {title:"Comidas",items:[
-      {name:"Bolo",note:"Já comprado",done:true,qty:"",resp:"Larissa"},
-      {name:"Docinhos",note:"Já pagos pela tia",done:true,qty:"",resp:"Tia"},
-      {name:"Salgadinhos",note:"Definir quantidade total",done:false,qty:"",resp:""},
-      {name:"Cachorro-quente",note:"Conferir quantidade e ingredientes",done:false,qty:"",resp:""},
-      {name:"Mini pizza",note:"Conferir quantidade",done:false,qty:"",resp:""}
-    ]},
-    {title:"Bebidas",items:[
-      {name:"Refrigerante",note:"Definir sabores e quantidade",done:false,qty:"",resp:""},
-      {name:"Água",note:"Com e sem gás se quiser",done:false,qty:"",resp:""},
-      {name:"Suco",note:"Opcional",done:false,qty:"",resp:""},
-      {name:"Gelo",note:"Comprar perto do horário da festa",done:false,qty:"",resp:""}
-    ]}
-  ],
-  structure:[
-    {title:"Mesa e serviço",items:[
-      {name:"Mesa principal / mesa do bolo",note:"Confirmar montagem",done:false,qty:"",resp:""},
-      {name:"Mesas e cadeiras dos convidados",note:"Conferir quantidade do salão",done:false,qty:"",resp:""},
-      {name:"Pratos descartáveis",note:"Bolo e salgados",done:false,qty:"",resp:""},
-      {name:"Copos",note:"Separar uma margem extra",done:false,qty:"",resp:""},
-      {name:"Talheres",note:"Garfinhos e colheres se necessário",done:false,qty:"",resp:""},
-      {name:"Guardanapos",note:"Mesa e serviço",done:false,qty:"",resp:""},
-      {name:"Bandejas / pegadores",note:"Para salgados e doces",done:false,qty:"",resp:""}
-    ]},
-    {title:"Decoração e logística",items:[
-      {name:"Decoração jurássica",note:"Painel, balões e elementos da mesa",done:false,qty:"",resp:""},
-      {name:"Vela do bolo",note:"Número 2",done:false,qty:"1",resp:""},
-      {name:"Faca do bolo + isqueiro",note:"Deixar separados",done:false,qty:"",resp:""},
-      {name:"Lembrancinhas",note:"Conferir quantidade pelas crianças",done:false,qty:"",resp:""},
-      {name:"Lista de entrada do salão",note:"Puxada pelo convite",done:false,qty:"",resp:""},
-      {name:"Orientação: entrada pela garagem",note:"Reforçar no dia",done:true,qty:"",resp:""},
-      {name:"Sacos de lixo",note:"Levar extras",done:false,qty:"",resp:""}
-    ]}
-  ]
-};
-let state=JSON.parse(localStorage.getItem("theo_party_planner")||"null")||defaultData;
-
-function save(){localStorage.setItem("theo_party_planner",JSON.stringify(state));renderAll()}
-function makeCategory(cat,group,idx){
-  const el=document.createElement("div");el.className="category";
-  const done=cat.items.filter(i=>i.done).length;
-  el.innerHTML='<div class="catTitle"><h3>'+cat.title+'</h3><span class="badge">'+done+'/'+cat.items.length+'</span></div>';
-  cat.items.forEach((it,j)=>{
-    const row=document.createElement("div");row.className="item"+(it.done?" done":"");
-    row.innerHTML='<input class="check" type="checkbox" '+(it.done?"checked":"")+'><div class="name">'+it.name+'<small>'+it.note+'</small></div><input class="qty" placeholder="Qtd." value="'+esc(it.qty||"")+'"><input class="resp" placeholder="Responsável" value="'+esc(it.resp||"")+'">';
-    const [chk,qty,resp]=row.querySelectorAll("input");
-    chk.onchange=()=>{state[group][idx].items[j].done=chk.checked;save()};
-    qty.onchange=()=>{state[group][idx].items[j].qty=qty.value;save()};
-    resp.onchange=()=>{state[group][idx].items[j].resp=resp.value;save()};
-    el.appendChild(row);
-  });
-  const add=document.createElement("div");add.className="addRow";
-  add.innerHTML='<input placeholder="Novo item"><input placeholder="Qtd."><input placeholder="Responsável"><button class="btn alt">Adicionar</button>';
-  const inputs=add.querySelectorAll("input");add.querySelector("button").onclick=()=>{
-    if(!inputs[0].value.trim())return;
-    state[group][idx].items.push({name:inputs[0].value.trim(),note:"",done:false,qty:inputs[1].value.trim(),resp:inputs[2].value.trim()});save()
-  };
-  el.appendChild(add);return el
-}
-function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function renderGroup(id,group){const box=document.getElementById(id);box.innerHTML="";state[group].forEach((c,i)=>box.appendChild(makeCategory(c,group,i)))}
-function renderAll(){
-  renderGroup("foodGrid","food");renderGroup("structureGrid","structure");
-  const items=[...state.food.flatMap(c=>c.items),...state.structure.flatMap(c=>c.items)],done=items.filter(i=>i.done).length,pct=items.length?Math.round(done/items.length*100):0;
-  document.getElementById("doneCount").textContent=done;document.getElementById("pendingCount").textContent=items.length-done;document.getElementById("pct").textContent=pct+"%";document.getElementById("progress").style.width=pct+"%"
-}
-renderAll();
-
 const cfg=window.THEO_INVITE_CONFIG||{},sb=window.supabase.createClient(cfg.supabaseUrl,cfg.supabaseAnonKey);
-document.getElementById("loadGuests").onclick=async()=>{
-  const pass=document.getElementById("dashPass").value,box=document.getElementById("guestList");box.innerHTML='<div class="muted">Carregando...</div>';
-  const {data,error}=await sb.rpc("dashboard_rsvps",{p_password:pass});
-  if(error){box.innerHTML='<div style="color:#ffb1a6">Não consegui carregar. Confira a senha.</div>';return}
-  const rows=Array.isArray(data)?data:[];
-  const yes=rows.filter(r=>r.status==="sim"),adults=yes.reduce((a,r)=>a+Number(r.adults||0),0),children=yes.reduce((a,r)=>a+Number(r.children||0),0);
-  guestConfirmed.textContent=yes.length;adultCount.textContent=adults;childCount.textContent=children;totalPeople.textContent=adults+children;
-  box.innerHTML="";
-  rows.forEach(r=>{
-    const div=document.createElement("div");div.className="guestRow";
+let PASS=sessionStorage.getItem("theo_admin_pass")||"",items=[],guests=[];
+const statuses=[["sugestao","Sugestão"],["a_comprar","A comprar"],["comprado","Comprado"],["encomendado","Encomendado"],["pago","Pago"],["resolvido","Resolvido"]];
+const categoryOrder=["Alimentos","Bebidas","Descartáveis","Mesa e decoração","Estrutura","Crianças","Logística"];
+
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function setMsg(t,ok=false){const e=document.getElementById("msg");e.className=ok?"success":"error";e.textContent=t||""}
+function resolved(s){return ["comprado","encomendado","pago","resolvido"].includes(s)}
+
+async function loadAll(){
+  if(!PASS){setMsg("Digite a senha.");return}
+  setMsg("Carregando...",true);
+  const [{data:i,error:ie},{data:g,error:ge}]=await Promise.all([
+    sb.rpc("party_items_list",{p_password:PASS}),
+    sb.rpc("dashboard_rsvps",{p_password:PASS})
+  ]);
+  if(ie||ge){setMsg("Senha incorreta ou acesso não liberado.");return}
+  items=i||[];guests=g||[];sessionStorage.setItem("theo_admin_pass",PASS);
+  ["summary","itens","convidados"].forEach(id=>document.getElementById(id).style.display="block");
+  setMsg("");renderItems();renderGuests();renderSummary();
+}
+function renderSummary(){
+  const d=items.filter(x=>resolved(x.status)).length,p=items.length-d,pct=items.length?Math.round(d/items.length*100):0;
+  done.textContent=d;pending.textContent=p;progress.style.width=pct+"%";progressText.textContent=pct+"% da organização marcada como resolvida.";
+  const yes=guests.filter(r=>r.status==="sim"),a=yes.reduce((n,r)=>n+Number(r.adults||0),0),c=yes.reduce((n,r)=>n+Number(r.children||0),0);
+  confirmed.textContent=yes.length;adults.textContent=a;children.textContent=c;people.textContent=a+c;
+}
+function renderGuests(){
+  guestList.innerHTML="";
+  if(!guests.length){guestList.innerHTML='<div class="saveNote">Nenhuma confirmação ainda.</div>';return}
+  guests.forEach(r=>{
     const names=Array.isArray(r.guests)?r.guests.map(g=>g.name).filter(Boolean).join(", "):"";
-    div.innerHTML='<div><strong>'+esc(r.name||"")+'</strong><div class="guestNames">'+esc(names)+'</div></div><div><span class="tag '+(r.status||"")+'">'+(r.status==="sim"?"Confirmado":r.status==="talvez"?"Talvez":"Não vai")+'</span></div><div>'+Number(r.adults||0)+' adulto(s)</div><div>'+Number(r.children||0)+' criança(s)</div>';
-    box.appendChild(div)
+    const row=document.createElement("div");row.className="guestRow";
+    row.innerHTML='<div><strong>'+esc(r.name)+'</strong><div class="guestNames">'+esc(names)+'</div></div><div><span class="tag '+esc(r.status)+'">'+(r.status==="sim"?"Confirmado":r.status==="talvez"?"Talvez":"Não vai")+'</span></div><div>'+Number(r.adults||0)+' adulto(s)</div><div>'+Number(r.children||0)+' criança(s)</div>';
+    guestList.appendChild(row)
   })
-};
+}
+function renderItems(){
+  categories.innerHTML="";
+  const cats=[...new Set([...categoryOrder,...items.map(i=>i.category)])];
+  cats.forEach(cat=>{
+    const list=items.filter(i=>i.category===cat).sort((a,b)=>(a.sort_order||0)-(b.sort_order||0)||a.id-b.id);
+    const box=document.createElement("div");box.className="category";
+    const solved=list.filter(i=>resolved(i.status)).length;
+    box.innerHTML='<div class="catHead"><h3>'+esc(cat)+'</h3><span class="badge">'+solved+'/'+list.length+'</span></div>';
+    list.forEach(it=>box.appendChild(itemRow(it)));
+    box.appendChild(addRow(cat));
+    categories.appendChild(box)
+  })
+}
+function itemRow(it){
+  const row=document.createElement("div");row.className="item";
+  row.innerHTML=
+    '<div class="name">'+esc(it.item)+'</div>'+
+    '<input class="input qty" value="'+esc(it.quantity||"")+'" placeholder="Quantidade">'+
+    '<input class="input resp" value="'+esc(it.responsible||"")+'" placeholder="Responsável">'+
+    '<select class="status">'+statuses.map(([v,l])=>'<option value="'+v+'" '+(it.status===v?"selected":"")+'>'+l+'</option>').join("")+'</select>'+
+    '<div style="display:flex;gap:6px"><button class="btn alt save">Salvar</button><button class="btn danger del">Excluir</button></div>'+
+    '<div class="notes">'+esc(it.notes||"")+'</div>';
+  row.querySelector(".save").onclick=async()=>{
+    const {error}=await sb.rpc("party_item_upsert",{p_password:PASS,p_id:it.id,p_category:it.category,p_item:it.item,p_quantity:row.querySelector(".qty").value,p_responsible:row.querySelector(".resp").value,p_status:row.querySelector(".status").value,p_notes:it.notes||"",p_sort_order:it.sort_order||0});
+    if(error){alert("Não consegui salvar.");return} await loadAll();
+  };
+  row.querySelector(".del").onclick=async()=>{
+    if(!confirm("Excluir este item?"))return;
+    const {error}=await sb.rpc("party_item_delete",{p_password:PASS,p_id:it.id});
+    if(error){alert("Não consegui excluir.");return}await loadAll()
+  };
+  return row
+}
+function addRow(cat){
+  const wrap=document.createElement("div");wrap.className="add";
+  wrap.innerHTML='<input class="n" placeholder="Novo item"><input class="q" placeholder="Quantidade"><input class="r" placeholder="Responsável"><select class="s">'+statuses.map(([v,l])=>'<option value="'+v+'">'+l+'</option>').join("")+'</select><button class="btn">Adicionar</button><textarea class="t" placeholder="Observação (opcional)"></textarea>';
+  wrap.querySelector("button").onclick=async()=>{
+    const item=wrap.querySelector(".n").value.trim();if(!item)return;
+    const {error}=await sb.rpc("party_item_upsert",{p_password:PASS,p_id:null,p_category:cat,p_item:item,p_quantity:wrap.querySelector(".q").value,p_responsible:wrap.querySelector(".r").value,p_status:wrap.querySelector(".s").value,p_notes:wrap.querySelector(".t").value,p_sort_order:999});
+    if(error){alert("Não consegui adicionar.");return}await loadAll()
+  };
+  return wrap
+}
+enterBtn.onclick=()=>{PASS=pass.value;loadAll()};
+reloadBtn.onclick=loadAll;
+pass.addEventListener("keydown",e=>{if(e.key==="Enter")enterBtn.click()});
+if(PASS){pass.value=PASS;loadAll()}
 </script>
 </body>
 </html>
