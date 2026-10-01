@@ -10,7 +10,7 @@
 <title>Convite • Theo 2 anos</title>
 <meta name="description" content="Convite para a aventura jurássica de 2 anos do Theo.">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./theo-2-anos/config.js"></script>
+<script src="./theo-2-anos/config.js?v=91-2"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 <style>
 :root{
@@ -77,8 +77,8 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opac
 .important{margin:18px 0 24px;border-left:4px solid var(--gold);background:rgba(242,191,98,.075);padding:14px 15px;border-radius:0 14px 14px 0;line-height:1.55;color:#eadfc7}
 .important strong{color:#ffda8e}
 label{display:block;color:var(--bone);font-size:.84rem;font-weight:900;margin:14px 0 7px}
-input,textarea{width:100%;border:1px solid rgba(246,239,217,.16);background:rgba(0,0,0,.22);color:white;border-radius:13px;padding:13px 14px;font:inherit;outline:none}
-input:focus,textarea:focus{border-color:rgba(185,220,115,.6);box-shadow:0 0 0 3px rgba(185,220,115,.07)}
+input,textarea,select{width:100%;border:1px solid rgba(246,239,217,.16);background:rgba(0,0,0,.22);color:white;border-radius:13px;padding:13px 14px;font:inherit;outline:none}
+input:focus,textarea:focus,select:focus{border-color:rgba(185,220,115,.6);box-shadow:0 0 0 3px rgba(185,220,115,.07)}
 .status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .status{position:relative;margin:0}.status input{position:absolute;opacity:0}.status span{display:grid;place-items:center;text-align:center;min-height:62px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03);font-weight:900;cursor:pointer;padding:8px}
 .status input:checked+span{border-color:var(--green);background:rgba(185,220,115,.11);color:var(--green)}
@@ -102,7 +102,7 @@ footer{text-align:center;padding:34px 20px 60px;color:#7d9183;font-size:.8rem}
 <div class="floating f1">🌿</div><div class="floating f2">🦕</div><div class="floating f3">🥚</div><div class="floating f4">🦖</div>
 <div class="hero-inner">
   <div class="kicker">Convite de aniversário • expedição jurássica</div>
-  <div class="photo-badge"><img src="./theo-2-anos/assets/theo-1.jpg?v=6" alt="Theo sorrindo"></div>
+  <div class="photo-badge"><img src="./theo-2-anos/assets/theo-1.jpg?v=20261001-2" alt="Theo sorrindo"></div>
   <h1 class="theo-title">Theo</h1>
   <div class="age-line">vai fazer 2 anos!</div>
   <p class="lead">Nosso pequeno explorador está completando 2 anos e queremos você com a gente nessa aventura cheia de dinossauros, brincadeiras e muita festa.</p>
@@ -180,8 +180,8 @@ footer{text-align:center;padding:34px 20px 60px;color:#7d9183;font-size:.8rem}
 
       <div id="partyArea">
         <div class="two">
-          <div><label for="adults">Quantos adultos?</label><input id="adults" type="number" min="1" max="10" value="1" inputmode="numeric"></div>
-          <div><label for="children">Quantas crianças?</label><input id="children" type="number" min="0" max="10" value="0" inputmode="numeric"></div>
+          <div><label for="adults">Quantos adultos?</label><select id="adults"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div>
+          <div><label for="children">Quantas crianças?</label><select id="children"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div>
         </div>
         <div class="guest-fields">
           <div class="guest-head">Nome de todos que irão</div>
@@ -215,7 +215,7 @@ const configured=cfg.supabaseUrl&&!cfg.supabaseUrl.includes("PASTE_")&&cfg.supab
 const sb=configured?window.supabase.createClient(cfg.supabaseUrl,cfg.supabaseAnonKey):null;
 const form=document.getElementById("rsvpForm"),adultEl=document.getElementById("adults"),childEl=document.getElementById("children"),guestInputs=document.getElementById("guestInputs");
 const partyArea=document.getElementById("partyArea"),noArea=document.getElementById("noArea"),errorMsg=document.getElementById("errorMsg"),successMsg=document.getElementById("successMsg"),setupMsg=document.getElementById("setupMsg"),submitBtn=document.getElementById("submitBtn");
-document.getElementById("mapsBtn").href=eventCfg.mapsUrl||"#";
+document.getElementById("mapsBtn").href=eventCfg.mapsUrl||"https://www.google.com/maps/search/?api=1&query=Rua+Silva+Rabelo+91+Meier+Rio+de+Janeiro";
 let deviceId=localStorage.getItem("theo_device_id");
 if(!deviceId){deviceId=(crypto.randomUUID?crypto.randomUUID():"d-"+Date.now()+"-"+Math.random().toString(16).slice(2));localStorage.setItem("theo_device_id",deviceId)}
 let saved=JSON.parse(localStorage.getItem("theo_rsvp")||"null");
@@ -235,7 +235,7 @@ function toggleStatus(){
   const decline=currentStatus()==="nao";partyArea.style.display=decline?"none":"block";noArea.style.display=decline?"block":"none";
   document.getElementById("declineName").required=decline;
 }
-adultEl.addEventListener("input",()=>renderGuests(guestSnapshot()));childEl.addEventListener("input",()=>renderGuests(guestSnapshot()));
+adultEl.addEventListener("change",()=>renderGuests(guestSnapshot()));childEl.addEventListener("change",()=>renderGuests(guestSnapshot()));
 document.querySelectorAll('input[name="status"]').forEach(x=>x.addEventListener("change",toggleStatus));
 renderGuests();
 
